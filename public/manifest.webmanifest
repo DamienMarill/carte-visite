@@ -1,0 +1,17 @@
+{
+  "name": "Marill.dev — Carte de visite",
+  "short_name": "Marill.dev",
+  "description": "Le code au service de la créativité.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040404",
+  "theme_color": "#040404",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

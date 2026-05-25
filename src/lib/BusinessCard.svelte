@@ -1,11 +1,12 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy } from "svelte";
 
   let cardEl = $state(null);
   let tiltX = $state(0);
   let tiltY = $state(0);
   let gyroAvailable = $state(false);
   let needsPermission = $state(false);
+  let flipped = $state(false);
 
   const MAX_TILT = 15;
 
@@ -35,10 +36,8 @@
   // Gyroscope handler
   function handleOrientation(e) {
     if (e.beta == null || e.gamma == null) return;
-    // beta = front-back (-180..180), gamma = left-right (-90..90)
-    // Normalize around "phone held upright" (beta ~90)
-    targetX = clamp(-(e.beta - 60) * 0.3, -MAX_TILT, MAX_TILT);
-    targetY = clamp(e.gamma * 0.4, -MAX_TILT, MAX_TILT);
+    targetX = clamp((e.beta - 60) * 0.3, -MAX_TILT, MAX_TILT);
+    targetY = clamp(-e.gamma * 0.4, -MAX_TILT, MAX_TILT);
   }
 
   // Mouse fallback for desktop
@@ -47,8 +46,16 @@
     const rect = cardEl.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    targetX = clamp(((e.clientY - cy) / (rect.height / 2)) * -MAX_TILT, -MAX_TILT, MAX_TILT);
-    targetY = clamp(((e.clientX - cx) / (rect.width / 2)) * MAX_TILT, -MAX_TILT, MAX_TILT);
+    targetX = clamp(
+      ((e.clientY - cy) / (rect.height / 2)) * -MAX_TILT,
+      -MAX_TILT,
+      MAX_TILT,
+    );
+    targetY = clamp(
+      ((e.clientX - cx) / (rect.width / 2)) * MAX_TILT,
+      -MAX_TILT,
+      MAX_TILT,
+    );
   }
 
   function handleMouseLeave() {
@@ -57,12 +64,16 @@
     targetY = 0;
   }
 
+  function flipCard() {
+    flipped = !flipped;
+  }
+
   async function requestGyro() {
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    if (typeof DeviceOrientationEvent.requestPermission === "function") {
       try {
         const perm = await DeviceOrientationEvent.requestPermission();
-        if (perm === 'granted') {
-          window.addEventListener('deviceorientation', handleOrientation);
+        if (perm === "granted") {
+          window.addEventListener("deviceorientation", handleOrientation);
           gyroAvailable = true;
           needsPermission = false;
         }
@@ -73,19 +84,20 @@
   }
 
   onMount(() => {
-    // Check gyroscope availability
-    if (typeof DeviceOrientationEvent !== 'undefined') {
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        // iOS — needs user gesture
+    if (typeof DeviceOrientationEvent !== "undefined") {
+      if (typeof DeviceOrientationEvent.requestPermission === "function") {
         needsPermission = true;
       } else {
-        // Android / other
-        window.addEventListener('deviceorientation', (e) => {
-          if (e.beta !== null) {
-            gyroAvailable = true;
-            window.addEventListener('deviceorientation', handleOrientation);
-          }
-        }, { once: true });
+        window.addEventListener(
+          "deviceorientation",
+          (e) => {
+            if (e.beta !== null) {
+              gyroAvailable = true;
+              window.addEventListener("deviceorientation", handleOrientation);
+            }
+          },
+          { once: true },
+        );
       }
     }
 
@@ -94,7 +106,7 @@
 
   onDestroy(() => {
     if (rafId) cancelAnimationFrame(rafId);
-    window.removeEventListener('deviceorientation', handleOrientation);
+    window.removeEventListener("deviceorientation", handleOrientation);
   });
 
   // Shine position derived from tilt
@@ -109,46 +121,136 @@
     </button>
   {/if}
 
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     bind:this={cardEl}
-    class="business-card"
+    class="card-gyro"
     style="transform: rotateX({tiltX}deg) rotateY({tiltY}deg);"
     onmousemove={handleMouse}
     onmouseleave={handleMouseLeave}
-    role="img"
-    aria-label="Carte de visite Marill.dev"
+    onclick={flipCard}
   >
-    <!-- Shine overlay -->
-    <div
-      class="card-shine"
-      style="background: radial-gradient(circle at {shineX}% {shineY}%, rgba(255,255,255,0.15) 0%, transparent 60%);"
-    ></div>
+    <div class="card-flipper" class:is-flipped={flipped}>
+      <!-- FRONT -->
+    <div class="card-face card-front">
+      <div
+        class="card-shine"
+        style="background: radial-gradient(circle at {shineX}% {shineY}%, rgba(255,255,255,0.15) 0%, transparent 60%);"
+      ></div>
 
-    <!-- Card content -->
-    <div class="card-inner">
-      <div class="card-header">
-        <img src="/logo.svg" alt="Marill.dev" class="card-logo" />
-        <p class="card-title">Développeur web créatif</p>
-      </div>
+      <div class="card-inner">
+        <div class="card-header">
+          <img src="/logo.svg" alt="Marill.dev" class="card-logo" />
+          <p class="card-title">Développeur web créatif</p>
+        </div>
 
-      <div class="card-contacts">
-        <a href="mailto:contact@marill.dev" class="card-link">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          contact@marill.dev
-        </a>
-        <a href="tel:+33600000000" class="card-link">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          06 00 00 00 00
-        </a>
-        <a href="https://instagram.com/marill.dev" target="_blank" rel="noopener" class="card-link">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
-          @marill.dev
-        </a>
-        <a href="https://linkedin.com/in/damienmarill" target="_blank" rel="noopener" class="card-link">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          Damien Marill
-        </a>
+        <div class="card-contacts">
+          <a
+            href="mailto:contact@marill.dev"
+            class="card-link"
+            onclick={(e) => e.stopPropagation()}
+          >
+            <svg
+              class="card-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><rect x="2" y="4" width="20" height="16" rx="2" /><path
+                d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+              /></svg
+            >
+            contact@marill.dev
+          </a>
+          <a
+            href="tel:+33600000000"
+            class="card-link"
+            onclick={(e) => e.stopPropagation()}
+          >
+            <svg
+              class="card-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+              /></svg
+            >
+            06 00 00 00 00
+          </a>
+          <a
+            href="https://instagram.com/marill.dev"
+            target="_blank"
+            rel="noopener"
+            class="card-link"
+            onclick={(e) => e.stopPropagation()}
+          >
+            <svg
+              class="card-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><rect x="2" y="2" width="20" height="20" rx="5" /><circle
+                cx="12"
+                cy="12"
+                r="5"
+              /><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" /></svg
+            >
+            @marill.dev
+          </a>
+          <a
+            href="https://linkedin.com/in/damienmarill"
+            target="_blank"
+            rel="noopener"
+            class="card-link"
+            onclick={(e) => e.stopPropagation()}
+          >
+            <svg
+              class="card-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"
+              /><rect x="2" y="9" width="4" height="12" /><circle
+                cx="4"
+                cy="4"
+                r="2"
+              /></svg
+            >
+            Damien Marill
+          </a>
+        </div>
       </div>
+    </div>
+
+    <!-- BACK (easter egg) -->
+    <div class="card-face card-back">
+      <div
+        class="card-shine"
+        style="background: radial-gradient(circle at {100 -
+          shineX}% {shineY}%, rgba(255,255,255,0.12) 0%, transparent 60%);"
+      ></div>
+
+      <div class="card-inner back-content">
+        <div class="speech-bubble">
+          <p>Yahaha, tu m'as trouvé !</p>
+        </div>
+        <img src="/meika.png" alt="Meika" class="meika-img" />
+      </div>
+    </div>
     </div>
   </div>
 </div>
@@ -166,7 +268,7 @@
   }
 
   .gyro-prompt {
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -176,7 +278,7 @@
     border-radius: 999px;
     padding: 0.4rem 1rem;
     cursor: pointer;
-    transition: all 220ms cubic-bezier(.2,0,.2,1);
+    transition: all 220ms cubic-bezier(0.2, 0, 0.2, 1);
   }
 
   .gyro-prompt:hover {
@@ -184,10 +286,31 @@
     box-shadow: 0 0 0 4px rgba(90, 77, 235, 0.1);
   }
 
-  .business-card {
+  .card-gyro {
     position: relative;
     width: 100%;
     aspect-ratio: 1.586;
+    transform-style: preserve-3d;
+    will-change: transform;
+    cursor: pointer;
+  }
+
+  .card-flipper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-flipper.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
     border-radius: 12px;
     background: linear-gradient(
       145deg,
@@ -196,12 +319,15 @@
     );
     border: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
-    transform-style: preserve-3d;
-    will-change: transform;
+    backface-visibility: hidden;
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.4),
       0 0 0 1px rgba(255, 255, 255, 0.05),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
   }
 
   .card-shine {
@@ -210,7 +336,6 @@
     border-radius: inherit;
     pointer-events: none;
     z-index: 1;
-    transition: background 150ms ease;
   }
 
   .card-inner {
@@ -262,7 +387,7 @@
   }
 
   .card-link:hover {
-    color: #A49CFF;
+    color: #a49cff;
   }
 
   .card-icon {
@@ -272,9 +397,58 @@
     opacity: 0.6;
   }
 
-  /* Subtle border glow on perspective */
-  .business-card::after {
-    content: '';
+  /* --- BACK FACE --- */
+  .back-content {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .speech-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px 12px 4px 12px;
+    padding: 0.5rem 0.75rem;
+    max-width: 55%;
+    align-self: flex-end;
+    margin-bottom: 0.5rem;
+  }
+
+  .speech-bubble::after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    bottom: 8px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+
+  .speech-bubble p {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.3;
+  }
+
+  .meika-img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 8px rgba(90, 77, 235, 0.3));
+  }
+
+  /* Subtle border glow */
+  .card-front::after {
+    content: "";
     position: absolute;
     inset: -1px;
     border-radius: inherit;

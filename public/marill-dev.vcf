@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Damien Marill
+N:Marill;Damien;;;
+ORG:Marill.dev
+TITLE:Développeur web créatif
+TEL;TYPE=CELL:+33600000000
+EMAIL:contact@marill.dev
+URL:https://marill.dev
+X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/marill.dev
+X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/damienmarill
+END:VCARD

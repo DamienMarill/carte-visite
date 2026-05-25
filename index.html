@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="description" content="Marill.dev — Développeur web créatif. Le code au service de la créativité." />
     <meta name="theme-color" content="#040404" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>Marill.dev — Développeur web créatif</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+      }
+    </script>
   </body>
 </html>

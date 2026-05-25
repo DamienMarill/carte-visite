@@ -28,11 +28,22 @@
     }
   }
 
-  function draw() {
+  let lastDraw = 0;
+  const DRAW_INTERVAL = 66; // ~15fps, plenty for ambient color
+
+  function draw(now) {
     if (!active || !canvasEl || !videoEl) return;
-    const ctx = canvasEl.getContext('2d');
-    ctx.drawImage(videoEl, 0, 0, W, H);
     rafId = requestAnimationFrame(draw);
+
+    // Throttle: no need to draw every frame
+    if (now - lastDraw < DRAW_INTERVAL) return;
+    lastDraw = now;
+
+    const ctx = canvasEl.getContext('2d');
+    // Blend new frame over previous at low opacity → smooth transition
+    ctx.globalAlpha = 0.12;
+    ctx.drawImage(videoEl, 0, 0, W, H);
+    ctx.globalAlpha = 1;
   }
 
   function stop() {
@@ -73,7 +84,7 @@
     height: 100vh;
     z-index: -2;
     object-fit: cover;
-    filter: blur(60px) saturate(1.8) brightness(0.35);
+    filter: blur(60px) saturate(1.8) brightness(0.55);
     transform: scale(1.3) translateZ(0);
     opacity: 0;
     transition: opacity 1.5s ease;
@@ -90,9 +101,9 @@
     z-index: -1;
     background: linear-gradient(
       180deg,
-      rgba(4, 4, 4, 0.7) 0%,
-      rgba(40, 42, 73, 0.5) 50%,
-      rgba(4, 4, 4, 0.8) 100%
+      rgba(4, 4, 4, 0.5) 0%,
+      rgba(40, 42, 73, 0.3) 50%,
+      rgba(4, 4, 4, 0.6) 100%
     );
     pointer-events: none;
   }

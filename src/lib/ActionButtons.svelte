@@ -1,21 +1,38 @@
 <script>
-  function downloadVCard() {
-    const vcard = [
-      'BEGIN:VCARD',
-      'VERSION:3.0',
-      'FN:Damien Marill',
-      'N:Marill;Damien;;;',
-      'ORG:Marill.dev',
-      'TITLE:Développeur web créatif',
-      'TEL;TYPE=CELL:+33600000000',
-      'EMAIL:contact@marill.dev',
-      'URL:https://marill.dev',
-      'X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/marill.dev',
-      'X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/damienmarill',
-      'END:VCARD'
-    ].join('\r\n');
+  import { onMount } from 'svelte';
 
-    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+  let installPrompt = $state(null);
+  let installed = $state(false);
+
+  const vcardData = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:Damien Marill',
+    'N:Marill;Damien;;;',
+    'ORG:Marill.dev',
+    'TITLE:Développeur web créatif',
+    'TEL;TYPE=CELL:+33600000000',
+    'EMAIL:contact@marill.dev',
+    'URL:https://marill.dev',
+    'X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/marill.dev',
+    'X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/damienmarill',
+    'END:VCARD'
+  ].join('\r\n');
+
+  async function addContact() {
+    const file = new File([vcardData], 'marill-dev.vcf', { type: 'text/vcard' });
+
+    if (navigator.canShare?.({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file] });
+        return;
+      } catch {
+        // User cancelled — fall through
+      }
+    }
+
+    // Fallback: download
+    const blob = new Blob([vcardData], { type: 'text/vcard' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -23,10 +40,38 @@
     a.click();
     URL.revokeObjectURL(url);
   }
+
+  async function installApp() {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+      installed = true;
+    }
+    installPrompt = null;
+  }
+
+  onMount(() => {
+    // Check if already installed (standalone mode)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      installed = true;
+    }
+
+    // Capture the install prompt before the browser shows it
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      installPrompt = e;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installed = true;
+      installPrompt = null;
+    });
+  });
 </script>
 
 <div class="actions">
-  <button class="action-btn action-primary" onclick={downloadVCard}>
+  <button class="action-btn action-primary" onclick={addContact}>
     <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
       <circle cx="9" cy="7" r="4"/>
@@ -36,13 +81,16 @@
     Ajouter à mes contacts
   </button>
 
-  <button class="action-btn action-secondary" disabled title="Bientôt disponible">
-    <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="5" width="20" height="14" rx="2"/>
-      <line x1="2" y1="10" x2="22" y2="10"/>
-    </svg>
-    Enregistrer dans Wallet
-  </button>
+  {#if installPrompt && !installed}
+    <button class="action-btn action-secondary" onclick={installApp}>
+      <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Installer l'app
+    </button>
+  {/if}
 </div>
 
 <style>
@@ -68,6 +116,7 @@
     font-weight: 700;
     cursor: pointer;
     border: none;
+    text-decoration: none;
     transition: all 220ms cubic-bezier(.2,0,.2,1);
   }
 
@@ -88,17 +137,13 @@
 
   .action-secondary {
     background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .action-secondary:hover:not(:disabled) {
+  .action-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
-  }
-
-  .action-secondary:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
   }
 
   .action-icon {
