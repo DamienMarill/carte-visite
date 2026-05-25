@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Marill.dev — Colors & Type
+   Design tokens + semantic CSS vars for typography and color.
+   ========================================================================== */
+
+/* --- Webfonts ---------------------------------------------------------- */
+/* Brand fonts, self-hosted from /fonts.
+   NOTE: the Figma actually uses Figtree (25× across the file); the user
+   uploaded Lato as the brand font, so we wire Lato in as the display/body
+   face. Figtree is kept as a fallback. JetBrains Mono still loads from CDN
+   for code — replace with a local file if offline use is required. */
+@font-face { font-family: 'Lato'; font-weight: 100; font-style: normal;  src: url('./fonts/Lato-Thin.ttf')        format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 100; font-style: italic;  src: url('./fonts/Lato-ThinItalic.ttf')  format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 300; font-style: normal;  src: url('./fonts/Lato-Light.ttf')       format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 300; font-style: italic;  src: url('./fonts/Lato-LightItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 400; font-style: normal;  src: url('./fonts/Lato-Regular.ttf')     format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 400; font-style: italic;  src: url('./fonts/Lato-Italic.ttf')      format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 700; font-style: normal;  src: url('./fonts/Lato-Bold.ttf')        format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 700; font-style: italic;  src: url('./fonts/Lato-BoldItalic.ttf')  format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 900; font-style: normal;  src: url('./fonts/Lato-Black.ttf')       format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lato'; font-weight: 900; font-style: italic;  src: url('./fonts/Lato-BlackItalic.ttf') format('truetype'); font-display: swap; }
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* ---------- Base palette ---------- */
+  /* Core brand — extracted from Figma: */
+  --mrl-ink:          #1E1E1E;   /* primary text on light */
+  --mrl-black:        #040404;   /* backdrop top of gradient */
+  --mrl-midnight:     #282A49;   /* backdrop bottom of gradient */
+  --mrl-indigo-deep:  #272947;
+  --mrl-indigo-ink:   #2B2E94;   /* stems of sparklers */
+  --mrl-white:        #FFFFFF;
+  --mrl-paper:        #FAFAF7;   /* off-white for paper-card surfaces */
+
+  /* Neutrals — grayscale ramp */
+  --mrl-gray-50:      #F5F5F5;
+  --mrl-gray-100:     #E5E5E5;
+  --mrl-gray-200:     #D9D9D9;
+  --mrl-gray-400:     #8C8C8C;
+  --mrl-gray-600:     #525252;
+  --mrl-gray-800:     #2A2A2A;
+
+  /* ---------- Signature accents (sparkler palette) ---------- */
+  --mrl-violet:       #5A4DEB;   /* signature — "Transmettre, concevoir..." subtitle, brand CTA */
+  --mrl-violet-soft:  #A49CFF;   /* sparkler burst, hover halo */
+  --mrl-violet-pale:  #A973FC;
+  --mrl-amber:        #FEB545;   /* warm accent */
+  --mrl-sun:          #FFEC5D;   /* yellow highlight */
+  --mrl-peach:        #FFDEAB;   /* soft warm tint */
+  --mrl-sky:          #BCEAFF;   /* pastel blue */
+  --mrl-cyan:         #48C0F7;   /* bright cyan */
+  --mrl-teal:         #48CFC3;   /* teal spark */
+  --mrl-pink:         #DE5FCA;   /* magenta spark */
+
+  /* ---------- Semantic surfaces ---------- */
+  --bg-default:       var(--mrl-paper);
+  --bg-elevated:      var(--mrl-white);
+  --bg-inverse:       var(--mrl-black);
+  --bg-night:         linear-gradient(180deg, var(--mrl-black) 0%, var(--mrl-midnight) 100%);
+  --bg-muted:         var(--mrl-gray-50);
+
+  --fg-default:       var(--mrl-ink);
+  --fg-muted:         var(--mrl-gray-600);
+  --fg-subtle:        var(--mrl-gray-400);
+  --fg-inverse:       var(--mrl-white);
+  --fg-accent:        var(--mrl-violet);
+  --fg-accent-soft:   var(--mrl-violet-soft);
+
+  --border-default:   var(--mrl-gray-200);
+  --border-subtle:    var(--mrl-gray-100);
+  --border-strong:    var(--mrl-ink);
+
+  /* ---------- Spacing scale (4px base) ---------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  /* ---------- Radii ---------- */
+  --radius-xs: 4px;    /* cards in Figma — soft but crisp */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ---------- Shadows (Figma: Polaroid-style photo card) ---------- */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:  0 2px 6px rgba(0,0,0,.10), 0 0 2px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.06);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06);
+  --shadow-photo: 0 2px 6px rgba(0,0,0,.10), 0 0 2px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.2);
+  --shadow-halo: 0 0 0 6px rgba(90,77,235,.18);
+
+  /* ---------- Motion ---------- */
+  --ease-out-bounce: cubic-bezier(.34,1.56,.64,1);
+  --ease-standard:   cubic-bezier(.2,.0,.2,1);
+  --dur-fast:        120ms;
+  --dur-med:         220ms;
+  --dur-slow:        400ms;
+
+  /* ---------- Type families ---------- */
+  --font-display:  'Lato', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:     'Lato', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---------- Type scale (desktop 1728-wide design grid) ---------- */
+  --fs-display-xl: 128px;  /* giant editorial, rarely used */
+  --fs-display:    96px;
+  --fs-h1:         64px;
+  --fs-h2:         48px;
+  --fs-h3:         40px;
+  --fs-h4:         32px;
+  --fs-lg:         24px;
+  --fs-body:       18px;
+  --fs-sm:         16px;
+  --fs-xs:         14px;
+  --fs-micro:      12px;
+
+  --lh-tight:    1.1;
+  --lh-snug:     1.2;
+  --lh-normal:   1.5;
+  --lh-loose:    1.7;
+
+  --lt-tight:    -0.02em;
+  --lt-normal:   0;
+  --lt-wide:     0.02em;
+
+  /* ---------- Semantic type roles ---------- */
+  --type-hero:   800 var(--fs-h1)/var(--lh-snug) var(--font-display);
+  --type-h1:     700 var(--fs-h1)/var(--lh-snug) var(--font-display);
+  --type-h2:     700 var(--fs-h2)/var(--lh-snug) var(--font-display);
+  --type-h3:     700 var(--fs-h3)/var(--lh-snug) var(--font-display);
+  --type-h4:     600 var(--fs-h4)/var(--lh-snug) var(--font-display);
+  --type-lead:   500 var(--fs-lg)/var(--lh-normal) var(--font-body);
+  --type-body:   400 var(--fs-body)/var(--lh-normal) var(--font-body);
+  --type-ui:     500 var(--fs-sm)/var(--lh-normal) var(--font-body);
+  --type-caption:500 var(--fs-xs)/var(--lh-normal) var(--font-body);
+  --type-code:   400 var(--fs-sm)/var(--lh-normal) var(--font-mono);
+}
+
+/* --- Light surface is the default. Swap via .theme-night on any container. - */
+.theme-night {
+  --bg-default:   var(--mrl-black);
+  --bg-elevated:  var(--mrl-indigo-deep);
+  --bg-inverse:   var(--mrl-white);
+  --fg-default:   var(--mrl-white);
+  --fg-muted:     rgba(255,255,255,.72);
+  --fg-subtle:    rgba(255,255,255,.5);
+  --fg-inverse:   var(--mrl-ink);
+  --fg-accent:    var(--mrl-violet-soft);
+  --border-default: rgba(255,255,255,.12);
+  --border-subtle:  rgba(255,255,255,.06);
+  --border-strong:  var(--mrl-white);
+}
+
+/* --- Base resets for pages that opt in ---------------------------------- */
+.mrl-base {
+  font: var(--type-body);
+  color: var(--fg-default);
+  background: var(--bg-default);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Semantic element styles for quick prototyping ---------------------- */
+.mrl-base h1 { font: var(--type-h1); letter-spacing: var(--lt-tight); margin: 0 0 var(--space-5); }
+.mrl-base h2 { font: var(--type-h2); letter-spacing: var(--lt-tight); margin: 0 0 var(--space-4); }
+.mrl-base h3 { font: var(--type-h3); margin: 0 0 var(--space-3); }
+.mrl-base h4 { font: var(--type-h4); margin: 0 0 var(--space-3); }
+.mrl-base p  { font: var(--type-body); margin: 0 0 var(--space-4); color: var(--fg-default); text-wrap: pretty; }
+.mrl-base small { font: var(--type-caption); color: var(--fg-muted); }
+.mrl-base code, .mrl-base pre { font: var(--type-code); color: var(--fg-default); }
+.mrl-base a { color: var(--fg-accent); text-decoration: underline; text-underline-offset: 3px; }

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Logo — pleine lune + reflets en mix-blend</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: #FAFAF7; color: #1E1E1E; font-family: 'Lato', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 64px 48px 96px; }
+  h1 { font-size: 48px; font-weight: 900; letter-spacing: -0.03em; margin: 0 0 8px; }
+  .sub { color: #525252; font-size: 17px; max-width: 720px; line-height: 1.55; margin: 0 0 12px; }
+  .direction { color: #8C8C8C; font-size: 13px; font-family: 'JetBrains Mono', monospace; max-width: 720px; line-height: 1.7; margin: 0 0 48px; }
+  .variant { margin: 0 0 56px; }
+  .variant-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+  .variant-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8C8C; letter-spacing: 0.08em; text-transform: uppercase; }
+  .variant-title { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+  .variant-note { color: #525252; font-size: 14px; line-height: 1.55; margin: 4px 0 0; max-width: 720px; }
+  .stage { background: #FFFFFF; border: 1px solid #E6E6E1; border-radius: 16px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .stage > div { display: flex; align-items: center; justify-content: center; padding: 20px; min-height: 260px; }
+  .stage .night { background: linear-gradient(135deg, #040404 0%, #282A49 100%); border-radius: 10px; }
+  .small-test { background: #FFFFFF; border: 1px solid #E6E6E1; border-radius: 16px; padding: 32px; display: flex; flex-wrap: wrap; gap: 44px; align-items: center; justify-content: center; }
+  .small-test .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8C8C; display: block; margin-top: 10px; text-align: center; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pleine lune + halos multiples en mix-blend</h1>
+  <p class="sub">Un cercle plein. Quelques cratères à la surface pour la reconnaître. Par-dessus, plusieurs dégradés radiaux qui vont vers la transparence se chevauchent — des « taches » de lumière. Un <code>mix-blend-mode</code> permet aux halos de teinter la lune <em>sans</em> effacer ses cratères. Tout est masqué au disque.</p>
+  <p class="direction">technique : &lt;circle&gt; lune + &lt;g clip-path&gt; cratères · &lt;g clip-path mix-blend-mode=&quot;…&quot;&gt; halos radiaux</p>
+
+<!-- ================================================================== -->
+<!-- V1 — mix-blend-mode: screen sur fond clair, overlay sur nuit -->
+<div class="variant">
+  <div class="variant-head"><span class="variant-num">V1</span><h2 class="variant-title">3 halos · screen / overlay</h2></div>
+  <p class="variant-note">Trois halos : violet (haut-gauche), rose (droite), ambre (bas). Mode « screen » sur fond clair, « overlay » sur fond nuit pour garder la luminosité.</p>
+  <div class="stage">
+    <div>
+      <svg viewBox="0 0 620 240" width="540">
+        <defs>
+          <clipPath id="v1a-clip"><circle cx="110" cy="120" r="78"/></clipPath>
+          <radialGradient id="v1a-h1" cx=".3" cy=".3" r=".55"><stop offset="0" stop-color="#5A4DEB" stop-opacity=".95"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v1a-h2" cx=".8" cy=".45" r=".55"><stop offset="0" stop-color="#DE5FCA" stop-opacity=".9"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v1a-h3" cx=".5" cy=".85" r=".5"><stop offset="0" stop-color="#FEB545" stop-opacity=".85"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- Moon base -->
+        <circle cx="110" cy="120" r="78" fill="#EDE9DC"/>
+        <!-- Craters -->
+        <g clip-path="url(#v1a-clip)" fill="#C8C1AE">
+          <circle cx="78" cy="96" r="9"/>
+          <circle cx="138" cy="88" r="6"/>
+          <circle cx="158" cy="138" r="11"/>
+          <circle cx="92" cy="158" r="7"/>
+          <circle cx="122" cy="142" r="4"/>
+        </g>
+        <!-- Halos, clipped + blended -->
+        <g clip-path="url(#v1a-clip)" style="mix-blend-mode: screen">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v1a-h1)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v1a-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v1a-h3)"/>
+        </g>
+        <!-- Subtle outer outline to seat it on paper -->
+        <circle cx="110" cy="120" r="78" fill="none" stroke="#1E1E1E" stroke-width="1" opacity=".35"/>
+        <text x="230" y="152" font-family="Lato, system-ui" font-weight="900" font-size="96" fill="#1E1E1E" letter-spacing="-2.5">Marill<tspan fill="#5A4DEB">.</tspan>dev</text>
+      </svg>
+    </div>
+    <div class="night">
+      <svg viewBox="0 0 620 240" width="540">
+        <defs>
+          <clipPath id="v1b-clip"><circle cx="110" cy="120" r="78"/></clipPath>
+          <radialGradient id="v1b-h1" cx=".3" cy=".3" r=".55"><stop offset="0" stop-color="#5A4DEB" stop-opacity="1"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v1b-h2" cx=".8" cy=".45" r=".55"><stop offset="0" stop-color="#DE5FCA" stop-opacity="1"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v1b-h3" cx=".5" cy=".85" r=".5"><stop offset="0" stop-color="#FEB545" stop-opacity="1"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="110" cy="120" r="78" fill="#EDE9DC"/>
+        <g clip-path="url(#v1b-clip)" fill="#B5AE9A">
+          <circle cx="78" cy="96" r="9"/>
+          <circle cx="138" cy="88" r="6"/>
+          <circle cx="158" cy="138" r="11"/>
+          <circle cx="92" cy="158" r="7"/>
+          <circle cx="122" cy="142" r="4"/>
+        </g>
+        <g clip-path="url(#v1b-clip)" style="mix-blend-mode: overlay">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v1b-h1)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v1b-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v1b-h3)"/>
+        </g>
+        <text x="230" y="152" font-family="Lato, system-ui" font-weight="900" font-size="96" fill="#FFFFFF" letter-spacing="-2.5">Marill<tspan fill="#A49CFF">.</tspan>dev</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- V2 — 4 halos plus saturés, blend multiply+screen -->
+<div class="variant">
+  <div class="variant-head"><span class="variant-num">V2</span><h2 class="variant-title">4 halos saturés · blend multiply</h2></div>
+  <p class="variant-note">Quatre halos (violet, rose, ambre, cyan) plus saturés et qui se chevauchent davantage. Blend « multiply » sur fond clair — les couleurs teintent vraiment la lune, les cratères restent visibles en plus sombre.</p>
+  <div class="stage">
+    <div>
+      <svg viewBox="0 0 620 240" width="540">
+        <defs>
+          <clipPath id="v2a-clip"><circle cx="110" cy="120" r="78"/></clipPath>
+          <radialGradient id="v2a-h1" cx=".25" cy=".3" r=".45"><stop offset="0" stop-color="#5A4DEB" stop-opacity=".85"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v2a-h2" cx=".7" cy=".3" r=".45"><stop offset="0" stop-color="#DE5FCA" stop-opacity=".8"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v2a-h3" cx=".75" cy=".75" r=".45"><stop offset="0" stop-color="#FEB545" stop-opacity=".85"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v2a-h4" cx=".25" cy=".8" r=".45"><stop offset="0" stop-color="#48C0F7" stop-opacity=".8"/><stop offset="1" stop-color="#48C0F7" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="110" cy="120" r="78" fill="#F0ECDE"/>
+        <g clip-path="url(#v2a-clip)" fill="#B8B09C">
+          <circle cx="78" cy="96" r="9"/>
+          <circle cx="138" cy="88" r="6"/>
+          <circle cx="158" cy="138" r="11"/>
+          <circle cx="92" cy="158" r="7"/>
+          <circle cx="122" cy="142" r="4"/>
+          <circle cx="70" cy="140" r="3"/>
+        </g>
+        <g clip-path="url(#v2a-clip)" style="mix-blend-mode: multiply">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2a-h1)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2a-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2a-h3)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2a-h4)"/>
+        </g>
+        <circle cx="110" cy="120" r="78" fill="none" stroke="#1E1E1E" stroke-width="1" opacity=".3"/>
+        <text x="230" y="152" font-family="Lato, system-ui" font-weight="900" font-size="96" fill="#1E1E1E" letter-spacing="-2.5">Marill<tspan fill="#5A4DEB">.</tspan>dev</text>
+      </svg>
+    </div>
+    <div class="night">
+      <svg viewBox="0 0 620 240" width="540">
+        <defs>
+          <clipPath id="v2b-clip"><circle cx="110" cy="120" r="78"/></clipPath>
+          <radialGradient id="v2b-h1" cx=".25" cy=".3" r=".45"><stop offset="0" stop-color="#5A4DEB" stop-opacity="1"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v2b-h2" cx=".7" cy=".3" r=".45"><stop offset="0" stop-color="#DE5FCA" stop-opacity="1"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v2b-h3" cx=".75" cy=".75" r=".45"><stop offset="0" stop-color="#FEB545" stop-opacity="1"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v2b-h4" cx=".25" cy=".8" r=".45"><stop offset="0" stop-color="#48C0F7" stop-opacity="1"/><stop offset="1" stop-color="#48C0F7" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="110" cy="120" r="78" fill="#EDE9DC"/>
+        <g clip-path="url(#v2b-clip)" fill="#A39B88">
+          <circle cx="78" cy="96" r="9"/>
+          <circle cx="138" cy="88" r="6"/>
+          <circle cx="158" cy="138" r="11"/>
+          <circle cx="92" cy="158" r="7"/>
+          <circle cx="122" cy="142" r="4"/>
+          <circle cx="70" cy="140" r="3"/>
+        </g>
+        <g clip-path="url(#v2b-clip)" style="mix-blend-mode: multiply">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2b-h1)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2b-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2b-h3)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v2b-h4)"/>
+        </g>
+        <text x="230" y="152" font-family="Lato, system-ui" font-weight="900" font-size="96" fill="#FFFFFF" letter-spacing="-2.5">Marill<tspan fill="#A49CFF">.</tspan>dev</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- V3 — halos plus doux / diffus + 5ème halo teal -->
+<div class="variant">
+  <div class="variant-head"><span class="variant-num">V3</span><h2 class="variant-title">5 halos diffus · blend soft-light</h2></div>
+  <p class="variant-note">Cinq halos plus larges et plus doux (r plus grand, opacité plus basse), blend « soft-light ». Effet nacre / opale — les couleurs se devinent, la lune reste très présente et lisible.</p>
+  <div class="stage">
+    <div>
+      <svg viewBox="0 0 620 240" width="540">
+        <defs>
+          <clipPath id="v3a-clip"><circle cx="110" cy="120" r="78"/></clipPath>
+          <radialGradient id="v3a-h1" cx=".2" cy=".25" r=".7"><stop offset="0" stop-color="#5A4DEB" stop-opacity=".9"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3a-h2" cx=".8" cy=".35" r=".65"><stop offset="0" stop-color="#DE5FCA" stop-opacity=".85"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3a-h3" cx=".55" cy=".85" r=".6"><stop offset="0" stop-color="#FEB545" stop-opacity=".9"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3a-h4" cx=".15" cy=".75" r=".6"><stop offset="0" stop-color="#48C0F7" stop-opacity=".8"/><stop offset="1" stop-color="#48C0F7" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3a-h5" cx=".9" cy=".8" r=".55"><stop offset="0" stop-color="#48CFC3" stop-opacity=".85"/><stop offset="1" stop-color="#48CFC3" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="110" cy="120" r="78" fill="#F4F0E0"/>
+        <g clip-path="url(#v3a-clip)" fill="#C8C1AE">
+          <circle cx="78" cy="96" r="9"/>
+          <circle cx="138" cy="88" r="6"/>
+          <circle cx="158" cy="138" r="11"/>
+          <circle cx="92" cy="158" r="7"/>
+          <circle cx="122" cy="142" r="4"/>
+          <circle cx="70" cy="140" r="3"/>
+          <circle cx="150" cy="102" r="3"/>
+        </g>
+        <g clip-path="url(#v3a-clip)" style="mix-blend-mode: soft-light">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h1)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h3)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h4)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h5)"/>
+        </g>
+        <!-- small screen pass for a hint of luminosity -->
+        <g clip-path="url(#v3a-clip)" style="mix-blend-mode: screen" opacity=".6">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3a-h3)"/>
+        </g>
+        <circle cx="110" cy="120" r="78" fill="none" stroke="#1E1E1E" stroke-width="1" opacity=".28"/>
+        <text x="230" y="152" font-family="Lato, system-ui" font-weight="900" font-size="96" fill="#1E1E1E" letter-spacing="-2.5">Marill<tspan fill="#5A4DEB">.</tspan>dev</text>
+      </svg>
+    </div>
+    <div class="night">
+      <svg viewBox="0 0 620 240" width="540">
+        <defs>
+          <clipPath id="v3b-clip"><circle cx="110" cy="120" r="78"/></clipPath>
+          <radialGradient id="v3b-h1" cx=".2" cy=".25" r=".7"><stop offset="0" stop-color="#5A4DEB" stop-opacity="1"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3b-h2" cx=".8" cy=".35" r=".65"><stop offset="0" stop-color="#DE5FCA" stop-opacity="1"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3b-h3" cx=".55" cy=".85" r=".6"><stop offset="0" stop-color="#FEB545" stop-opacity="1"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3b-h4" cx=".15" cy=".75" r=".6"><stop offset="0" stop-color="#48C0F7" stop-opacity="1"/><stop offset="1" stop-color="#48C0F7" stop-opacity="0"/></radialGradient>
+          <radialGradient id="v3b-h5" cx=".9" cy=".8" r=".55"><stop offset="0" stop-color="#48CFC3" stop-opacity="1"/><stop offset="1" stop-color="#48CFC3" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="110" cy="120" r="78" fill="#F0ECDE"/>
+        <g clip-path="url(#v3b-clip)" fill="#AFA794">
+          <circle cx="78" cy="96" r="9"/>
+          <circle cx="138" cy="88" r="6"/>
+          <circle cx="158" cy="138" r="11"/>
+          <circle cx="92" cy="158" r="7"/>
+          <circle cx="122" cy="142" r="4"/>
+          <circle cx="70" cy="140" r="3"/>
+          <circle cx="150" cy="102" r="3"/>
+        </g>
+        <g clip-path="url(#v3b-clip)" style="mix-blend-mode: soft-light">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h1)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h3)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h4)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h5)"/>
+        </g>
+        <g clip-path="url(#v3b-clip)" style="mix-blend-mode: screen" opacity=".7">
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h2)"/>
+          <rect x="32" y="42" width="156" height="156" fill="url(#v3b-h3)"/>
+        </g>
+        <text x="230" y="152" font-family="Lato, system-ui" font-weight="900" font-size="96" fill="#FFFFFF" letter-spacing="-2.5">Marill<tspan fill="#A49CFF">.</tspan>dev</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- TEST sizes -->
+<div class="variant">
+  <div class="variant-head"><span class="variant-num">TEST</span><h2 class="variant-title">Favicon / nav — V3 à 96 / 48 / 24 / 16 px</h2></div>
+  <p class="variant-note">Test de résilience : à très petite taille, les halos doivent se fondre en une aura globale sans bouillie. V3 (soft-light) tient le mieux — les cratères deviennent une texture, la couleur reste un souvenir.</p>
+  <div class="small-test">
+    <div class="col">
+      <svg viewBox="0 0 200 200" width="96"><defs><clipPath id="ft1"><circle cx="100" cy="100" r="94"/></clipPath><radialGradient id="ftg1" cx=".2" cy=".25" r=".7"><stop offset="0" stop-color="#5A4DEB" stop-opacity=".9"/><stop offset="1" stop-color="#5A4DEB" stop-opacity="0"/></radialGradient><radialGradient id="ftg2" cx=".8" cy=".35" r=".65"><stop offset="0" stop-color="#DE5FCA" stop-opacity=".85"/><stop offset="1" stop-color="#DE5FCA" stop-opacity="0"/></radialGradient><radialGradient id="ftg3" cx=".55" cy=".85" r=".6"><stop offset="0" stop-color="#FEB545" stop-opacity=".9"/><stop offset="1" stop-color="#FEB545" stop-opacity="0"/></radialGradient><radialGradient id="ftg4" cx=".15" cy=".75" r=".6"><stop offset="0" stop-color="#48C0F7" stop-opacity=".8"/><stop offset="1" stop-color="#48C0F7" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="#F4F0E0"/><g clip-path="url(#ft1)" fill="#C8C1AE"><circle cx="62" cy="72" r="11"/><circle cx="142" cy="68" r="7"/><circle cx="162" cy="126" r="13"/><circle cx="74" cy="146" r="9"/></g><g clip-path="url(#ft1)" style="mix-blend-mode: soft-light"><rect x="0" y="0" width="200" height="200" fill="url(#ftg1)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg2)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg3)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg4)"/></g><g clip-path="url(#ft1)" style="mix-blend-mode: screen" opacity=".6"><rect x="0" y="0" width="200" height="200" fill="url(#ftg2)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg3)"/></g><circle cx="100" cy="100" r="94" fill="none" stroke="#1E1E1E" stroke-width="1" opacity=".28"/></svg>
+      <span class="lbl">96 px</span>
+    </div>
+    <div class="col">
+      <svg viewBox="0 0 200 200" width="48"><circle cx="100" cy="100" r="94" fill="#F4F0E0"/><g clip-path="url(#ft1)" fill="#C8C1AE"><circle cx="62" cy="72" r="11"/><circle cx="142" cy="68" r="7"/><circle cx="162" cy="126" r="13"/><circle cx="74" cy="146" r="9"/></g><g clip-path="url(#ft1)" style="mix-blend-mode: soft-light"><rect x="0" y="0" width="200" height="200" fill="url(#ftg1)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg2)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg3)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg4)"/></g><g clip-path="url(#ft1)" style="mix-blend-mode: screen" opacity=".6"><rect x="0" y="0" width="200" height="200" fill="url(#ftg2)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg3)"/></g><circle cx="100" cy="100" r="94" fill="none" stroke="#1E1E1E" stroke-width="1" opacity=".28"/></svg>
+      <span class="lbl">48 px</span>
+    </div>
+    <div class="col">
+      <svg viewBox="0 0 200 200" width="24"><circle cx="100" cy="100" r="94" fill="#F4F0E0"/><g clip-path="url(#ft1)" fill="#C8C1AE"><circle cx="62" cy="72" r="11"/><circle cx="142" cy="68" r="7"/><circle cx="162" cy="126" r="13"/><circle cx="74" cy="146" r="9"/></g><g clip-path="url(#ft1)" style="mix-blend-mode: soft-light"><rect x="0" y="0" width="200" height="200" fill="url(#ftg1)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg2)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg3)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg4)"/></g></svg>
+      <span class="lbl">24 px</span>
+    </div>
+    <div class="col">
+      <svg viewBox="0 0 200 200" width="16"><circle cx="100" cy="100" r="94" fill="#F4F0E0"/><g clip-path="url(#ft1)" fill="#C8C1AE"><circle cx="62" cy="72" r="11"/><circle cx="142" cy="68" r="7"/><circle cx="162" cy="126" r="13"/><circle cx="74" cy="146" r="9"/></g><g clip-path="url(#ft1)" style="mix-blend-mode: soft-light"><rect x="0" y="0" width="200" height="200" fill="url(#ftg1)"/><rect x="0" y="0" width="200" height="200" fill="url(#ftg2)"/></g></svg>
+      <span class="lbl">16 px</span>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -6,4 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: process.env.GITHUB_ACTIONS ? '/carte-visite/' : '/',
   plugins: [svelte(), tailwindcss()],
+  server: {
+    allowedHosts: ['039e-46-19-110-36.ngrok-free.app'],
+  },
 })

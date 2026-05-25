@@ -1,2 +1,137 @@
+/* ==========================================================================
+   Marill.dev — Carte de visite immersive
+   Design tokens mapped to Tailwind v4 + DaisyUI v5
+   ========================================================================== */
+
+/* --- Webfonts: Lato (Regular, Bold, Black only) --- */
+@font-face {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-style: normal;
+  src: url('./assets/fonts/Lato-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato';
+  font-weight: 700;
+  font-style: normal;
+  src: url('./assets/fonts/Lato-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato';
+  font-weight: 900;
+  font-style: normal;
+  src: url('./assets/fonts/Lato-Black.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* --- Tailwind v4 --- */
 @import "tailwindcss";
+
+/* --- DaisyUI base plugin --- */
 @plugin "daisyui";
+
+/* --- DaisyUI custom theme: marill (night mode) --- */
+@plugin "daisyui/theme" {
+  name: "marill";
+  default: true;
+  prefersdark: false;
+  color-scheme: dark;
+
+  /* Base surfaces — night mode palette */
+  --color-base-100: #040404;
+  --color-base-200: #1a1b2e;
+  --color-base-300: #282A49;
+  --color-base-content: #ffffff;
+
+  /* Primary = violet signature */
+  --color-primary: #5A4DEB;
+  --color-primary-content: #ffffff;
+
+  /* Secondary = indigo deep */
+  --color-secondary: #282A49;
+  --color-secondary-content: #ffffff;
+
+  /* Accent = amber sparkler */
+  --color-accent: #FEB545;
+  --color-accent-content: #1E1E1E;
+
+  /* Neutral */
+  --color-neutral: #2A2A2A;
+  --color-neutral-content: #ffffff;
+
+  /* Functional */
+  --color-info: #48C0F7;
+  --color-info-content: #040404;
+  --color-success: #48CFC3;
+  --color-success-content: #040404;
+  --color-warning: #FEB545;
+  --color-warning-content: #1E1E1E;
+  --color-error: #DE5FCA;
+  --color-error-content: #ffffff;
+
+  /* Radii — crisp editorial (DS: 4px cards, 8px buttons) */
+  --radius-selector: 999px;
+  --radius-field: 0.5rem;
+  --radius-box: 0.25rem;
+
+  /* Sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* Border */
+  --border: 1px;
+
+  /* Effects */
+  --depth: 1;
+  --noise: 0;
+}
+
+/* --- Tailwind v4 @theme: register DS tokens as utilities --- */
+@theme {
+  /* Typography */
+  --font-display: 'Lato', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: 'Lato', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Brand colors (sparkler palette) */
+  --color-mrl-ink: #1E1E1E;
+  --color-mrl-black: #040404;
+  --color-mrl-midnight: #282A49;
+  --color-mrl-violet: #5A4DEB;
+  --color-mrl-violet-soft: #A49CFF;
+  --color-mrl-amber: #FEB545;
+  --color-mrl-sun: #FFEC5D;
+  --color-mrl-peach: #FFDEAB;
+  --color-mrl-sky: #BCEAFF;
+  --color-mrl-cyan: #48C0F7;
+  --color-mrl-teal: #48CFC3;
+  --color-mrl-pink: #DE5FCA;
+  --color-mrl-paper: #FAFAF7;
+  --color-mrl-white: #FFFFFF;
+
+  /* Shadows */
+  --shadow-mrl-md: 0 2px 6px rgba(0,0,0,.10), 0 0 2px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.06);
+  --shadow-mrl-lg: 0 8px 24px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06);
+  --shadow-mrl-halo: 0 0 0 6px rgba(90,77,235,.18);
+
+  /* Easing */
+  --ease-standard: cubic-bezier(.2,.0,.2,1);
+  --ease-out-bounce: cubic-bezier(.34,1.56,.64,1);
+}
+
+/* --- Global base styles --- */
+html {
+  font-family: 'Lato', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

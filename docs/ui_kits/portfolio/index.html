@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marill.dev — Portfolio</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: 'Lato', system-ui, sans-serif; background: #040404; color: #1E1E1E; -webkit-font-smoothing: antialiased; }
+    @keyframes mrl-twinkle { 0%, 100% { opacity: .88; transform: scale(1); } 50% { opacity: 1; transform: scale(1.03); } }
+    button:active { transform: scale(.98); }
+    button:focus-visible { outline: 3px solid #A49CFF; outline-offset: 3px; }
+    .mrl-cta-primary:hover { background: #4a3fd4 !important; box-shadow: 0 0 0 6px rgba(90,77,235,.18); }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="Sparkler.jsx"></script>
+  <script type="text/babel" src="Nav.jsx"></script>
+  <script type="text/babel" src="Hero.jsx"></script>
+  <script type="text/babel" src="Services.jsx"></script>
+  <script type="text/babel" src="Projects.jsx"></script>
+  <script type="text/babel" src="Testimonials.jsx"></script>
+  <script type="text/babel" src="Contact.jsx"></script>
+  <script type="text/babel" src="Footer.jsx"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function App() {
+      const [scrolled, setScrolled] = useState(false);
+      const [active, setActive]     = useState('home');
+      const [sent, setSent]         = useState(false);
+      const [openProject, setOpenProject] = useState(null);
+
+      useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 80);
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+      }, []);
+
+      const goTo = (id) => {
+        setActive(id);
+        const map = { home: 0, projets: document.getElementById('projets')?.offsetTop,
+                      cv: document.getElementById('confiance')?.offsetTop,
+                      contact: document.getElementById('contact')?.offsetTop };
+        window.scrollTo({ top: map[id] ?? 0, behavior: 'smooth' });
+      };
+
+      return (
+        <div>
+          <Nav scrolled={scrolled} theme="night" active={active} onNav={goTo} />
+          <Hero onContact={() => goTo('contact')} />
+          <Services />
+          <Projects onOpen={(p) => setOpenProject(p)} />
+          <Testimonials />
+          <Contact sent={sent} onSubmit={() => setSent(true)} />
+          <Footer />
+
+          {openProject && (
+            <div onClick={() => setOpenProject(null)} style={{
+              position: 'fixed', inset: 0, background: 'rgba(4,4,4,.6)',
+              backdropFilter: 'blur(8px)', zIndex: 100,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+            }}>
+              <div onClick={e => e.stopPropagation()} style={{
+                background: 'white', borderRadius: 8, padding: 40, maxWidth: 720, width: '100%',
+                boxShadow: '0 24px 80px rgba(0,0,0,.3)',
+              }}>
+                <div style={{ height: 200, borderRadius: 4, background: openProject.tint, marginBottom: 24 }} />
+                <h2 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 700, fontSize: 36, margin: 0, letterSpacing: '-.02em' }}>{openProject.title}</h2>
+                <p style={{ color: '#525252', fontSize: 17, lineHeight: 1.6, marginTop: 16 }}>{openProject.blurb}</p>
+                <button onClick={() => setOpenProject(null)} className="mrl-cta-primary" style={{
+                  marginTop: 20, padding: '12px 22px', borderRadius: 10, border: 'none',
+                  background: '#5A4DEB', color: 'white', fontWeight: 600, fontSize: 16, cursor: 'pointer',
+                }}>Fermer</button>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    setTimeout(() => {
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    }, 50);
+  </script>
+</body>
+</html>
