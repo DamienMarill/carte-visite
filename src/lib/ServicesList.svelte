@@ -1,9 +1,21 @@
 <script>
   const services = [
-    { label: 'Développement web sur-mesure', desc: 'Sites, apps, API — du concept au déploiement.' },
-    { label: 'Applications mobiles', desc: 'PWA & Capacitor pour une présence native.' },
-    { label: 'Design UI/UX', desc: 'Interfaces intuitives, pensées pour vos utilisateurs.' },
-    { label: 'Conseil & formation', desc: 'Transmettre, concevoir et innover avec vous.' },
+    {
+      label: "Développement web sur-mesure",
+      desc: "Sites, apps, API — du concept au déploiement.",
+    },
+    {
+      label: "Intégration IA",
+      desc: "Améliorer votre quotidien et votre productivité avec l'IA.",
+    },
+    {
+      label: "Hébergement et maintenance de service web",
+      desc: "La garantie d'un service fiable et sécurisé.",
+    },
+    {
+      label: "Accompagnement & formation",
+      desc: "Vous donner les clés pour être autonome et innover.",
+    },
   ];
 </script>
 
@@ -66,7 +78,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #5A4DEB;
+    background: #5a4deb;
     flex-shrink: 0;
     margin-top: 0.45rem;
     box-shadow: 0 0 6px rgba(90, 77, 235, 0.4);

@@ -133,124 +133,124 @@
   >
     <div class="card-flipper" class:is-flipped={flipped}>
       <!-- FRONT -->
-    <div class="card-face card-front">
-      <div
-        class="card-shine"
-        style="background: radial-gradient(circle at {shineX}% {shineY}%, rgba(255,255,255,0.15) 0%, transparent 60%);"
-      ></div>
+      <div class="card-face card-front">
+        <div
+          class="card-shine"
+          style="background: radial-gradient(circle at {shineX}% {shineY}%, rgba(255,255,255,0.15) 0%, transparent 60%);"
+        ></div>
 
-      <div class="card-inner">
-        <div class="card-header">
-          <img src="/logo.svg" alt="Marill.dev" class="card-logo" />
-          <p class="card-title">Développeur web créatif</p>
-        </div>
+        <div class="card-inner">
+          <div class="card-header">
+            <img src="/logo.svg" alt="Marill.dev" class="card-logo" />
+            <p class="card-title">Développeur web créatif / consultant IA</p>
+          </div>
 
-        <div class="card-contacts">
-          <a
-            href="mailto:contact@marill.dev"
-            class="card-link"
-            onclick={(e) => e.stopPropagation()}
-          >
-            <svg
-              class="card-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><rect x="2" y="4" width="20" height="16" rx="2" /><path
-                d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
-              /></svg
+          <div class="card-contacts">
+            <a
+              href="mailto:pro@marill.dev"
+              class="card-link"
+              onclick={(e) => e.stopPropagation()}
             >
-            contact@marill.dev
-          </a>
-          <a
-            href="tel:+33600000000"
-            class="card-link"
-            onclick={(e) => e.stopPropagation()}
-          >
-            <svg
-              class="card-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
-              /></svg
+              <svg
+                class="card-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><rect x="2" y="4" width="20" height="16" rx="2" /><path
+                  d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+                /></svg
+              >
+              pro@marill.dev
+            </a>
+            <a
+              href="tel:+33786813083"
+              class="card-link"
+              onclick={(e) => e.stopPropagation()}
             >
-            06 00 00 00 00
-          </a>
-          <a
-            href="https://instagram.com/marill.dev"
-            target="_blank"
-            rel="noopener"
-            class="card-link"
-            onclick={(e) => e.stopPropagation()}
-          >
-            <svg
-              class="card-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><rect x="2" y="2" width="20" height="20" rx="5" /><circle
-                cx="12"
-                cy="12"
-                r="5"
-              /><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" /></svg
+              <svg
+                class="card-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                /></svg
+              >
+              +33 7 86 81 30 83
+            </a>
+            <a
+              href="https://instagram.com/damien.marill"
+              target="_blank"
+              rel="noopener"
+              class="card-link"
+              onclick={(e) => e.stopPropagation()}
             >
-            @marill.dev
-          </a>
-          <a
-            href="https://linkedin.com/in/damienmarill"
-            target="_blank"
-            rel="noopener"
-            class="card-link"
-            onclick={(e) => e.stopPropagation()}
-          >
-            <svg
-              class="card-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path
-                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"
-              /><rect x="2" y="9" width="4" height="12" /><circle
-                cx="4"
-                cy="4"
-                r="2"
-              /></svg
+              <svg
+                class="card-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><rect x="2" y="2" width="20" height="20" rx="5" /><circle
+                  cx="12"
+                  cy="12"
+                  r="5"
+                /><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" /></svg
+              >
+              @damien.marill
+            </a>
+            <a
+              href="https://linkedin.com/in/dmarill"
+              target="_blank"
+              rel="noopener"
+              class="card-link"
+              onclick={(e) => e.stopPropagation()}
             >
-            Damien Marill
-          </a>
+              <svg
+                class="card-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"
+                /><rect x="2" y="9" width="4" height="12" /><circle
+                  cx="4"
+                  cy="4"
+                  r="2"
+                /></svg
+              >
+              Damien Marill
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- BACK (easter egg) -->
-    <div class="card-face card-back">
-      <div
-        class="card-shine"
-        style="background: radial-gradient(circle at {100 -
-          shineX}% {shineY}%, rgba(255,255,255,0.12) 0%, transparent 60%);"
-      ></div>
+      <!-- BACK (easter egg) -->
+      <div class="card-face card-back">
+        <div
+          class="card-shine"
+          style="background: radial-gradient(circle at {100 -
+            shineX}% {shineY}%, rgba(255,255,255,0.12) 0%, transparent 60%);"
+        ></div>
 
-      <div class="card-inner back-content">
-        <div class="speech-bubble">
-          <p>Yahaha, tu m'as trouvé !</p>
+        <div class="card-inner back-content">
+          <div class="speech-bubble">
+            <p>Yahaha, tu m'as trouvé !</p>
+          </div>
+          <img src="/meika.png" alt="Meika" class="meika-img" />
         </div>
-        <img src="/meika.png" alt="Meika" class="meika-img" />
       </div>
-    </div>
     </div>
   </div>
 </div>
@@ -355,14 +355,13 @@
   }
 
   .card-logo {
-    height: 1.75rem;
+    height: 2rem;
     width: auto;
     align-self: flex-start;
-    filter: brightness(0) invert(1);
   }
 
   .card-title {
-    font-size: 0.7rem;
+    font-size: 1rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.55);
     letter-spacing: 0.02em;
@@ -379,7 +378,7 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.65rem;
+    font-size: 0.95rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
@@ -391,8 +390,8 @@
   }
 
   .card-icon {
-    width: 0.85rem;
-    height: 0.85rem;
+    width: 1.1rem;
+    height: 1.1rem;
     flex-shrink: 0;
     opacity: 0.6;
   }
@@ -413,7 +412,7 @@
     padding: 0.5rem 0.75rem;
     max-width: 55%;
     align-self: flex-end;
-    margin-bottom: 0.5rem;
+    margin-bottom: 6rem;
   }
 
   .speech-bubble::after {
@@ -430,7 +429,7 @@
 
   .speech-bubble p {
     margin: 0;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 700;
     font-style: italic;
     color: rgba(255, 255, 255, 0.85);
@@ -438,8 +437,8 @@
   }
 
   .meika-img {
-    width: 5rem;
-    height: 5rem;
+    width: 10rem;
+    height: 10rem;
     object-fit: contain;
     border-radius: 8px;
     flex-shrink: 0;

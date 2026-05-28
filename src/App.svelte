@@ -1,8 +1,8 @@
 <script>
-  import AmbientBackground from './lib/AmbientBackground.svelte';
-  import BusinessCard from './lib/BusinessCard.svelte';
-  import ServicesList from './lib/ServicesList.svelte';
-  import ActionButtons from './lib/ActionButtons.svelte';
+  import AmbientBackground from "./lib/AmbientBackground.svelte";
+  import BusinessCard from "./lib/BusinessCard.svelte";
+  import ServicesList from "./lib/ServicesList.svelte";
+  import ActionButtons from "./lib/ActionButtons.svelte";
 </script>
 
 <AmbientBackground />
@@ -11,7 +11,7 @@
   <!-- Tagline -->
   <header class="tagline">
     <h1 class="tagline-text">
-      Le code au service<br/>de la créativité<span class="tagline-dot">.</span>
+      Le code au service<br />de la créativité<span class="tagline-dot">.</span>
     </h1>
     <p class="tagline-sub">Transmettre, concevoir et innover avec vous.</p>
   </header>
@@ -24,11 +24,6 @@
 
   <!-- Action Buttons -->
   <ActionButtons />
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2026 Marill.dev — Fait avec du code et du café.</p>
-  </footer>
 </main>
 
 <style>
@@ -45,7 +40,7 @@
 
   .tagline {
     text-align: center;
-    max-width: 380px;
+    max-width: 500px;
   }
 
   .tagline-text {
@@ -58,7 +53,7 @@
   }
 
   .tagline-dot {
-    color: #5A4DEB;
+    color: #5a4deb;
   }
 
   .tagline-sub {
