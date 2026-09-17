@@ -2,7 +2,8 @@
   import AmbientBackground from "./lib/AmbientBackground.svelte";
   import BusinessCard from "./lib/BusinessCard.svelte";
   import ServicesList from "./lib/ServicesList.svelte";
-  import ActionButtons from "./lib/ActionButtons.svelte";
+  import AddContactButton from "./lib/AddContactButton.svelte";
+  import InstallButton from "./lib/InstallButton.svelte";
 </script>
 
 <AmbientBackground />
@@ -34,11 +35,14 @@
   <!-- 3D Business Card -->
   <BusinessCard />
 
+  <!-- Add to contacts -->
+  <AddContactButton />
+
   <!-- Services -->
   <ServicesList />
 
-  <!-- Action Buttons -->
-  <ActionButtons />
+  <!-- Install app -->
+  <InstallButton />
 
   <footer class="legal-footer">
     <p>Entrepreneur salarié — La Maison des Entrepreneurs · BGE Coop</p>

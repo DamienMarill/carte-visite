@@ -1,9 +1,4 @@
 <script>
-  import { onMount } from "svelte";
-
-  let installPrompt = $state(null);
-  let installed = $state(false);
-
   const vcardData = [
     "BEGIN:VCARD",
     "VERSION:3.0",
@@ -42,34 +37,6 @@
     a.click();
     URL.revokeObjectURL(url);
   }
-
-  async function installApp() {
-    if (!installPrompt) return;
-    installPrompt.prompt();
-    const { outcome } = await installPrompt.userChoice;
-    if (outcome === "accepted") {
-      installed = true;
-    }
-    installPrompt = null;
-  }
-
-  onMount(() => {
-    // Check if already installed (standalone mode)
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      installed = true;
-    }
-
-    // Capture the install prompt before the browser shows it
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      installPrompt = e;
-    });
-
-    window.addEventListener("appinstalled", () => {
-      installed = true;
-      installPrompt = null;
-    });
-  });
 </script>
 
 <div class="actions">
@@ -90,25 +57,6 @@
     </svg>
     Ajouter à mes contacts
   </button>
-
-  {#if installPrompt && !installed}
-    <button class="action-btn action-secondary" onclick={installApp}>
-      <svg
-        class="action-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="7 10 12 15 17 10" />
-        <line x1="12" y1="15" x2="12" y2="3" />
-      </svg>
-      Installer l'app
-    </button>
-  {/if}
 </div>
 
 <style>
@@ -156,17 +104,6 @@
       var(--shadow-inset-primary),
       0 0 0 6px color-mix(in oklab, var(--color-blouge), transparent 82%),
       0 2px 12px color-mix(in oklab, var(--color-blouge), transparent 70%);
-  }
-
-  .action-secondary {
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.85);
-    border: var(--border-width) solid var(--border-night);
-  }
-
-  .action-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
   }
 
   .action-icon {
