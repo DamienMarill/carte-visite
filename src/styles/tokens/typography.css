@@ -1,0 +1,17 @@
+/* Marill.dev — typography tokens (Sakura Night)
+   Values are already resolved to absolute px (this project's html root is
+   the default 16px — no rescaling quirk to work around). */
+:root{
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Lato', ui-sans-serif, system-ui, sans-serif;
+
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;  /* hero h1 */
+  --weight-black: 900;      /* contact headline */
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-relaxed: 1.625;
+}

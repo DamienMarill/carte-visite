@@ -11,11 +11,11 @@
     "N:Marill;Damien;;;",
     "ORG:Marill.dev",
     "TITLE:Développeur web créatif / consultant IA",
-    "TEL;TYPE=CELL:+33786813083",
+    "TEL;TYPE=CELL:+33769002289",
     "EMAIL:pro@marill.dev",
     "URL:https://marill.dev",
-    "X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/damien.marill",
     "X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/dmarill",
+    "X-SOCIALPROFILE;TYPE=github:https://github.com/damienmarill",
     "END:VCARD",
   ].join("\r\n");
 
@@ -128,14 +128,14 @@
     gap: 0.5rem;
     width: 100%;
     padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-family: "Lato", sans-serif;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 700;
     cursor: pointer;
     border: none;
     text-decoration: none;
-    transition: all 220ms cubic-bezier(0.2, 0, 0.2, 1);
+    transition: all var(--duration-base) var(--ease-out);
   }
 
   .action-btn:active {
@@ -143,22 +143,25 @@
   }
 
   .action-primary {
-    background: #5a4deb;
+    background: var(--color-blouge);
     color: #ffffff;
-    box-shadow: 0 2px 12px rgba(90, 77, 235, 0.3);
+    box-shadow:
+      var(--shadow-inset-primary),
+      0 2px 12px color-mix(in oklab, var(--color-blouge), transparent 70%);
   }
 
   .action-primary:hover {
-    background: #4e42d4;
+    background: color-mix(in oklab, var(--color-blouge), transparent 10%);
     box-shadow:
-      0 0 0 6px rgba(90, 77, 235, 0.18),
-      0 2px 12px rgba(90, 77, 235, 0.3);
+      var(--shadow-inset-primary),
+      0 0 0 6px color-mix(in oklab, var(--color-blouge), transparent 82%),
+      0 2px 12px color-mix(in oklab, var(--color-blouge), transparent 70%);
   }
 
   .action-secondary {
     background: rgba(255, 255, 255, 0.06);
     color: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: var(--border-width) solid var(--border-night);
   }
 
   .action-secondary:hover {

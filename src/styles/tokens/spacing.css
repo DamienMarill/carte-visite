@@ -1,0 +1,8 @@
+/* Marill.dev — spacing & radii tokens (Sakura Night) */
+:root{
+  --radius-sm: 6px;      /* badge, small button */
+  --radius-md: 8px;      /* button, contact tile */
+  --radius-lg: 12px;     /* card */
+  --radius-full: 9999px; /* pill, avatar */
+  --border-width: 1px;
+}

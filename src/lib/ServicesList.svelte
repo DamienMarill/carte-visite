@@ -1,20 +1,24 @@
 <script>
   const services = [
     {
-      label: "Développement web sur-mesure",
-      desc: "Sites, apps, API — du concept au déploiement.",
+      label: "Développement web",
+      desc: "Sites, apps, API. Du concept au déploiement, réalisés sur mesure selon vos besoins.",
+    },
+    {
+      label: "Conseil IA",
+      desc: "J'analyse vos habitudes de travail pour identifier où l'IA peut vous faire gagner du temps et réduire votre charge mentale. Et je l'implémente.",
     },
     {
       label: "Intégration IA",
-      desc: "Améliorer votre quotidien et votre productivité avec l'IA.",
-    },
-    {
-      label: "Hébergement et maintenance de service web",
-      desc: "La garantie d'un service fiable et sécurisé.",
+      desc: "Enrichissez vos applications de fonctionnalités que le code seul ne peut pas offrir : analyse, génération, classification, automatisation complexe.",
     },
     {
       label: "Accompagnement & formation",
-      desc: "Vous donner les clés pour être autonome et innover.",
+      desc: "Vous donner les clés pour être autonome et innover, avec une méthodologie ludique et adaptative.",
+    },
+    {
+      label: "Hébergement & maintenance",
+      desc: "La garantie d'un service fiable, sécurisé et souverain, hébergé en France.",
     },
   ];
 </script>
@@ -42,12 +46,12 @@
   }
 
   .services-title {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-tight);
+    color: var(--text-night-strong);
+    margin: 0 0 0.85rem;
   }
 
   .services-list {
@@ -63,41 +67,42 @@
     display: flex;
     align-items: flex-start;
     gap: 0.6rem;
-    padding: 0.6rem 0.75rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: background 220ms ease;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-lg);
+    background: var(--surface-night-card);
+    border: 1px solid var(--border-night);
+    transition: background var(--duration-base) var(--ease-out);
   }
 
   .services-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: color-mix(in oklab, var(--surface-night-card), white 6%);
   }
 
   .services-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #5a4deb;
+    background: var(--color-blouge);
     flex-shrink: 0;
     margin-top: 0.45rem;
-    box-shadow: 0 0 6px rgba(90, 77, 235, 0.4);
+    box-shadow: 0 0 6px color-mix(in oklab, var(--color-blouge), transparent 60%);
   }
 
   .services-label {
     display: block;
+    font-family: var(--font-display);
     font-size: 0.85rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.3;
+    font-weight: var(--weight-semibold);
+    color: var(--text-night-strong);
+    line-height: var(--leading-snug);
   }
 
   .services-desc {
     display: block;
     font-size: 0.7rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.45);
-    line-height: 1.4;
-    margin-top: 0.1rem;
+    color: var(--text-night-body);
+    line-height: var(--leading-relaxed);
+    margin-top: 0.15rem;
   }
 </style>

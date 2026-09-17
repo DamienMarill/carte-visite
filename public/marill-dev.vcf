@@ -3,10 +3,10 @@ VERSION:3.0
 FN:Damien Marill
 N:Marill;Damien;;;
 ORG:Marill.dev
-TITLE:Développeur web créatif
-TEL;TYPE=CELL:+33600000000
-EMAIL:contact@marill.dev
+TITLE:Développeur web créatif / consultant IA
+TEL;TYPE=CELL:+33769002289
+EMAIL:pro@marill.dev
 URL:https://marill.dev
-X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/marill.dev
-X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/damienmarill
+X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/dmarill
+X-SOCIALPROFILE;TYPE=github:https://github.com/damienmarill
 END:VCARD

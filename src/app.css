@@ -1,7 +1,19 @@
 /* ==========================================================================
    Marill.dev — Carte de visite immersive
-   Design tokens mapped to Tailwind v4 + DaisyUI v5
+   Design tokens mapped to Tailwind v4 + DaisyUI v5 (Sakura Night)
    ========================================================================== */
+
+/* --- Sakura Night design tokens (Marill.dev design system) --- */
+@import "./styles/tokens/fonts.css";
+@import "./styles/tokens/colors.css";
+@import "./styles/tokens/typography.css";
+@import "./styles/tokens/spacing.css";
+@import "./styles/tokens/effects.css";
+@import "./styles/tokens/motion.css";
+@import "./styles/tokens/base.css";
+
+/* --- Tailwind v4 --- */
+@import "tailwindcss";
 
 /* --- Webfonts: Lato (Regular, Bold, Black only) --- */
 @font-face {
@@ -26,35 +38,32 @@
   font-display: swap;
 }
 
-/* --- Tailwind v4 --- */
-@import "tailwindcss";
-
 /* --- DaisyUI base plugin --- */
 @plugin "daisyui";
 
-/* --- DaisyUI custom theme: marill (night mode) --- */
+/* --- DaisyUI custom theme: marill (Sakura Night) --- */
 @plugin "daisyui/theme" {
   name: "marill";
   default: true;
   prefersdark: false;
   color-scheme: dark;
 
-  /* Base surfaces — night mode palette */
-  --color-base-100: #040404;
-  --color-base-200: #1a1b2e;
+  /* Base surfaces — night mode palette (Sakura Night) */
+  --color-base-100: #0E0A35;
+  --color-base-200: #1a1b3e;
   --color-base-300: #282A49;
   --color-base-content: #ffffff;
 
-  /* Primary = violet signature */
-  --color-primary: #5A4DEB;
+  /* Primary = blouge (periwinkle violet) */
+  --color-primary: oklch(65.15% 0.188 277.48);
   --color-primary-content: #ffffff;
 
-  /* Secondary = indigo deep */
+  /* Secondary = deep indigo */
   --color-secondary: #282A49;
   --color-secondary-content: #ffffff;
 
-  /* Accent = amber sparkler */
-  --color-accent: #FEB545;
+  /* Accent = peach (warm amber) */
+  --color-accent: oklch(79.55% 0.163 68.76);
   --color-accent-content: #1E1E1E;
 
   /* Neutral */
@@ -62,19 +71,19 @@
   --color-neutral-content: #ffffff;
 
   /* Functional */
-  --color-info: #48C0F7;
+  --color-info: oklch(77.47% 0.121 247.97);
   --color-info-content: #040404;
   --color-success: #48CFC3;
   --color-success-content: #040404;
-  --color-warning: #FEB545;
+  --color-warning: oklch(79.55% 0.163 68.76);
   --color-warning-content: #1E1E1E;
   --color-error: #DE5FCA;
   --color-error-content: #ffffff;
 
-  /* Radii — crisp editorial (DS: 4px cards, 8px buttons) */
+  /* Radii — Sakura Night DS scale */
   --radius-selector: 999px;
   --radius-field: 0.5rem;
-  --radius-box: 0.25rem;
+  --radius-box: 0.75rem;
 
   /* Sizes */
   --size-selector: 0.25rem;
@@ -91,29 +100,22 @@
 /* --- Tailwind v4 @theme: register DS tokens as utilities --- */
 @theme {
   /* Typography */
-  --font-display: 'Lato', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: 'Lato', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Brand colors (sparkler palette) */
-  --color-mrl-ink: #1E1E1E;
-  --color-mrl-black: #040404;
-  --color-mrl-midnight: #282A49;
-  --color-mrl-violet: #5A4DEB;
-  --color-mrl-violet-soft: #A49CFF;
-  --color-mrl-amber: #FEB545;
-  --color-mrl-sun: #FFEC5D;
-  --color-mrl-peach: #FFDEAB;
-  --color-mrl-sky: #BCEAFF;
-  --color-mrl-cyan: #48C0F7;
-  --color-mrl-teal: #48CFC3;
-  --color-mrl-pink: #DE5FCA;
-  --color-mrl-paper: #FAFAF7;
+  /* Sakura Night brand colors */
+  --color-mrl-night: oklch(34.54% 0.199 267.97);
+  --color-mrl-deep-night: oklch(22.16% 0.144 264.20);
+  --color-mrl-night-floor: #0E0A35;
+  --color-mrl-sky: oklch(77.47% 0.121 247.97);
+  --color-mrl-blouge: oklch(65.15% 0.188 277.48);
+  --color-mrl-peach: oklch(79.55% 0.163 68.76);
   --color-mrl-white: #FFFFFF;
 
   /* Shadows */
   --shadow-mrl-md: 0 2px 6px rgba(0,0,0,.10), 0 0 2px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.06);
   --shadow-mrl-lg: 0 8px 24px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06);
-  --shadow-mrl-halo: 0 0 0 6px rgba(90,77,235,.18);
+  --shadow-mrl-halo: 0 0 0 6px rgba(122,110,255,.18);
 
   /* Easing */
   --ease-standard: cubic-bezier(.2,.0,.2,1);

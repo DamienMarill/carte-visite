@@ -1,0 +1,56 @@
+/* Marill.dev — colour tokens (Sakura Night design system)
+   Source of truth: Claude Design project "Marill.dev Design System"
+   (tokens/colors.css). OKLCH values copied verbatim. */
+:root{
+  /* ---- Brand core ---- */
+  --color-night: oklch(34.54% 0.199 267.97);        /* deep royal blue — hero field */
+  --color-deep-night: oklch(22.16% 0.144 264.20);   /* near-black indigo — page floor */
+  --color-sky: #42a4dc;                             /* cyan-blue — "Transmettre" (measured from carte_visite.pdf) */
+  --color-blouge: #6575b8;                          /* periwinkle violet — ACCENT + logo dot (measured from carte_visite.pdf) */
+  --color-peach: #f89b36;                           /* warm amber — "Concevoir" (measured from carte_visite.pdf) */
+
+  /* Literal hexes from the source site — kept exact */
+  --color-hero-blue: #2127BE;
+  --color-night-floor: #0E0A35;    /* gradient end / page floor */
+  --color-glow-blue: #2025B3;
+  --color-glow-pink: #FFCAEC;
+  --color-glow-cyan: #92D9FF;
+
+  /* ---- Sakura (rose/magenta) — pivot #ffa9f5 at 300 ---- */
+  --color-sakura-300: oklch(83% 0.125 325);
+  --color-sakura-400: oklch(74% 0.178 325);
+  --color-sakura-500: oklch(64% 0.212 325);
+
+  /* ---- Gold (warm amber) — pivot #ffbd7d at 300 ---- */
+  --color-gold-300: oklch(84% 0.150 68);
+  --color-gold-400: oklch(78% 0.180 68);
+  --color-gold-500: oklch(70% 0.185 68);
+
+  /* ---- Neutrals — Tailwind zinc ---- */
+  --color-zinc-50:  #fafafa;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-800: #27272a;
+  --color-zinc-900: #18181b;
+  --color-zinc-950: #09090b;
+  --color-white: #ffffff;
+
+  /* ---- Accent ---- */
+  --color-accent: var(--color-blouge);
+  --color-accent-content: var(--color-zinc-50);
+
+  /* ---- Semantic — night surfaces (this app is night-only) ---- */
+  --surface-night-page: var(--color-night-floor);
+  --surface-night-card: rgba(255,255,255,0.10);
+  --surface-night-raised: rgba(39,39,42,0.90);
+  --border-night: rgba(255,255,255,0.10);
+  --border-night-strong: var(--color-zinc-600);
+  --text-night-strong: var(--color-white);
+  --text-night-body: var(--color-zinc-300);
+  --text-night-muted: var(--color-zinc-400);
+}

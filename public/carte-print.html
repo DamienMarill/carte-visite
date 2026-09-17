@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Marill.dev — Carte de visite (impression)</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  /* Format carte ISO 85×55mm + 3mm de fond perdu par côté = 91×61mm par face.
+     Zone de sécurité: 4mm en retrait du fond perdu (donc 7mm depuis le bord). */
+  @page { size: 91mm 61mm; margin: 0; }
+
+  :root {
+    --p-night: #1c2a63;
+    --p-deep-night: #0E0A35;
+    --p-blouge: #5A4DEB;
+    --p-peach: #FFB347;
+    --p-zinc-50: #fafafa;
+    --p-zinc-700: #3f3f46;
+    --p-zinc-500: #71717a;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #3a3a3a;
+    font-family: 'Lato', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .preview-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 24px;
+    align-items: flex-start;
+  }
+
+  .preview-col { display: flex; flex-direction: column; gap: 8px; }
+
+  .preview-label {
+    margin: 0;
+    color: #ddd;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .sheet {
+    width: 91mm;
+    height: 61mm;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    box-shadow: 0 4px 24px rgba(0,0,0,.4);
+  }
+  .sheet:last-child { page-break-after: auto; }
+
+  /* Ligne de coupe — le trim final (85×55mm), 3mm en retrait du fond perdu */
+  .trim-line {
+    position: absolute;
+    inset: 3mm;
+    border: 0.15mm dashed rgba(255,255,255,.35);
+    pointer-events: none;
+  }
+  .sheet-verso .trim-line { border-color: rgba(0,0,0,.25); }
+
+  .safe {
+    position: absolute;
+    inset: 7mm;
+  }
+
+  /* ---------- RECTO ---------- */
+  .sheet-recto {
+    background:
+      linear-gradient(145deg, rgba(28,42,99,.55) 0%, rgba(14,10,53,.85) 100%),
+      url('/assets/contact_bg.png') center / cover no-repeat,
+      var(--p-deep-night);
+  }
+
+  .recto-doodle {
+    position: absolute;
+    top: 4mm;
+    right: 5mm;
+    width: 14mm;
+    height: auto;
+    opacity: 0.55;
+  }
+
+  .recto-logo { width: 30mm; height: auto; display: block; }
+
+  .recto-name {
+    margin: 5mm 0 0;
+    font-family: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 5mm;
+    line-height: 1.1;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .recto-title {
+    margin: 1.4mm 0 0;
+    font-size: 2.6mm;
+    line-height: 1.3;
+    color: rgba(255,255,255,.72);
+  }
+
+  .recto-tagline {
+    position: absolute;
+    left: 7mm;
+    right: 7mm;
+    bottom: 7mm;
+    margin: 0;
+    font-size: 2.2mm;
+    font-style: italic;
+    color: rgba(255,255,255,.4);
+  }
+
+  /* ---------- VERSO ---------- */
+  .sheet-verso { background: var(--p-zinc-50); }
+
+  .verso-wordmark {
+    font-family: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 4mm;
+    color: var(--p-deep-night);
+    margin: 0 0 6mm;
+  }
+  .verso-wordmark .dot { color: var(--p-blouge); }
+
+  .verso-contacts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4mm;
+    max-width: 52mm;
+  }
+
+  .verso-contacts li {
+    display: flex;
+    align-items: center;
+    gap: 2mm;
+    font-size: 2.6mm;
+    color: var(--p-zinc-700);
+  }
+
+  .verso-contacts svg {
+    width: 3.4mm;
+    height: 3.4mm;
+    flex-shrink: 0;
+    stroke: var(--p-blouge);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .verso-qr-block {
+    position: absolute;
+    right: 7mm;
+    bottom: 7mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1mm;
+  }
+
+  .verso-qr-block img {
+    width: 17mm;
+    height: 17mm;
+    display: block;
+    image-rendering: pixelated;
+  }
+
+  .verso-qr-caption {
+    font-size: 2mm;
+    color: var(--p-zinc-500);
+    letter-spacing: 0.02em;
+  }
+
+  @media print {
+    html, body { background: #fff; }
+    .preview-wrap { padding: 0; gap: 0; }
+    .preview-label { display: none; }
+    .sheet { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="preview-wrap">
+    <div class="preview-col">
+      <p class="preview-label">Recto — 85×55&nbsp;mm + 3&nbsp;mm fond perdu (91×61&nbsp;mm)</p>
+      <div class="sheet sheet-recto">
+        <div class="trim-line"></div>
+        <img src="/assets/deco/sparkles.svg" alt="" class="recto-doodle" />
+        <div class="safe">
+          <img src="/logo.svg" alt="Marill.dev" class="recto-logo" />
+          <p class="recto-name">Damien Marill</p>
+          <p class="recto-title">Développeur web créatif / consultant&nbsp;IA</p>
+        </div>
+        <p class="recto-tagline">Le code au service de la créativité.</p>
+      </div>
+    </div>
+
+    <div class="preview-col">
+      <p class="preview-label">Verso</p>
+      <div class="sheet sheet-verso">
+        <div class="trim-line"></div>
+        <div class="safe">
+          <p class="verso-wordmark">Marill<span class="dot">.</span>dev</p>
+          <ul class="verso-contacts">
+            <li>
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+              pro@marill.dev
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+              +33 7 86 81 30 83
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" /></svg>
+              @damien.marill
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
+              Damien Marill
+            </li>
+          </ul>
+        </div>
+        <div class="verso-qr-block">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=https%3A%2F%2Fmarill.dev" alt="QR code vers marill.dev" />
+          <span class="verso-qr-caption">marill.dev</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

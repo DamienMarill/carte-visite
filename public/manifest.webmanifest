@@ -4,13 +4,19 @@
   "description": "Le code au service de la créativité.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#040404",
-  "theme_color": "#040404",
+  "background_color": "#0E0A35",
+  "theme_color": "#0E0A35",
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     }
   ]

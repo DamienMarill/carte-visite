@@ -1,0 +1,4 @@
+/* Marill.dev — base layer (Sakura Night, this app is night-only) */
+@media (prefers-reduced-motion: reduce) {
+  .doodle { animation: none !important; }
+}

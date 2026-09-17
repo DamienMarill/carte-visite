@@ -1,0 +1,14 @@
+/* Marill.dev — shadows, glows & fallback background (Sakura Night) */
+:root{
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-inset-primary: inset 0 1px rgb(255 255 255 / 0.2);
+
+  --glow-blue: radial-gradient(50% 50% at 50% 50%, var(--color-glow-blue) 70.24%, rgba(22,10,53,0) 100%);
+  --glow-pink: radial-gradient(50% 50% at 50% 50%, var(--color-glow-pink) 0%, rgba(22,10,53,0) 100%);
+  --glow-cyan: radial-gradient(50% 50% at 50% 50%, var(--color-glow-cyan) 0%, rgba(22,10,53,0) 100%);
+
+  /* Fallback starfield shown behind the ambient camera canvas when the
+     camera is unavailable/refused (see AmbientBackground.svelte). */
+  --bg-fallback-starfield: url('/assets/contact_bg.png');
+}

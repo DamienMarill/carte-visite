@@ -1,0 +1,22 @@
+/* Marill.dev — motion tokens (Sakura Night)
+   Two families: fast UI transitions (colour-only) and slow infinite ambient
+   loops (decorative doodles). Ambient motion is disabled under
+   prefers-reduced-motion (see base.css). */
+:root{
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --duration-reveal: 600ms;
+
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --tremble-duration-min: 6.7s;
+  --tremble-duration-max: 9.2s;
+}
+@keyframes marill-tremble{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  25%{transform:translate(2px,-3px) rotate(1.4deg)}
+  50%{transform:translate(-2px,2px) rotate(-0.9deg)}
+  75%{transform:translate(3px,1px) rotate(0.7deg)}
+}

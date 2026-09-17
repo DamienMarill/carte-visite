@@ -1,0 +1,5 @@
+/* Bricolage Grotesque — display font (headings only).
+   No self-hosted binary exists for this family (the Marill.dev design
+   system itself loads it from Google Fonts); Lato stays self-hosted via the
+   @font-face rules already in app.css. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap');

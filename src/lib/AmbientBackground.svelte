@@ -64,6 +64,11 @@
 <!-- Hidden video source -->
 <video bind:this={videoEl} class="hidden" playsinline muted></video>
 
+<!-- Fallback starfield: always present, sits under the camera nappe.
+     Visible on its own when the camera is refused/unavailable; otherwise
+     it's dimmed under the ambient canvas once the camera comes alive. -->
+<div class="ambient-fallback" class:ambient-dimmed={active}></div>
+
 <!-- Ambient canvas -->
 <canvas
   bind:this={canvasEl}
@@ -73,10 +78,24 @@
   class:ambient-active={active}
 ></canvas>
 
-<!-- Always-present night overlay -->
+<!-- Always-present night overlay (Sakura Night tint) -->
 <div class="ambient-overlay"></div>
 
 <style>
+  .ambient-fallback {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background: var(--bg-fallback-starfield) center / cover no-repeat,
+      var(--color-night-floor);
+    opacity: 1;
+    transition: opacity 1.5s ease;
+  }
+
+  .ambient-dimmed {
+    opacity: 0.35;
+  }
+
   .ambient-canvas {
     position: fixed;
     inset: 0;
@@ -101,9 +120,9 @@
     z-index: -1;
     background: linear-gradient(
       180deg,
-      rgba(4, 4, 4, 0.5) 0%,
+      rgba(14, 10, 53, 0.55) 0%,
       rgba(40, 42, 73, 0.3) 50%,
-      rgba(4, 4, 4, 0.6) 100%
+      rgba(14, 10, 53, 0.65) 100%
     );
     pointer-events: none;
   }

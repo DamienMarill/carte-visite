@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184mm" height="61mm" viewBox="0 0 184 61">
+  <!-- Marill.dev — carte de visite, recto (x:0-91) + verso (x:93-184), gouttière 2mm.
+       Format par face: 85x55mm + 3mm de fond perdu = 91x61mm. Zone de sécurité à 7mm des bords.
+       AVANT IMPRESSION: convertir en CMJN (profil FOGRA39/PSO Coated) — voir PRINT.md.
+       Si les polices Bricolage Grotesque / Lato ne sont pas installées chez l'imprimeur,
+       vectoriser le texte (Inkscape: Chemin > Objet en chemin, ou Illustrator: Créer les contours). -->
+  <defs>
+    <linearGradient id="rectoBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c2a63" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0E0A35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===================== RECTO ===================== -->
+  <g id="recto">
+    <rect x="0" y="0" width="91" height="61" fill="url(#rectoBg)"/>
+    <!-- ligne de coupe (85x55, 3mm de fond perdu) -->
+    <rect x="3" y="3" width="85" height="55" fill="none" stroke="#ffffff" stroke-opacity="0.3" stroke-width="0.15" stroke-dasharray="1,1"/>
+
+    <!-- doodle sparkles, coin haut droit -->
+    <g transform="translate(70,4) scale(0.045)" opacity="0.55">
+      <path d="M214.595 125.095L203.466 86.3434C203.072 84.9701 201.071 85.1413 200.918 86.5633L196.578 126.969C195.898 133.296 191.457 138.583 185.345 140.344L146.588 151.511C145.215 151.905 145.388 153.906 146.81 154.059L187.201 158.36C193.532 159.035 198.826 163.478 200.588 169.597L211.75 208.336C212.147 209.709 214.146 209.535 214.298 208.113L218.6 167.744C219.274 161.408 223.723 156.111 229.847 154.351L268.578 143.229C269.951 142.834 269.78 140.833 268.358 140.681L227.974 136.341C221.639 135.662 216.35 131.217 214.595 125.095Z" fill="#F2FAFF"/>
+    </g>
+
+    <!-- logo -->
+    <text x="7" y="17" font-family="Lato, sans-serif" font-weight="800" font-size="8.5" letter-spacing="-0.3" fill="#ffffff">Marill<tspan fill="#5A4DEB">.</tspan>dev</text>
+
+    <!-- nom -->
+    <text x="7" y="35" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="5" fill="#ffffff">Damien Marill</text>
+    <!-- titre -->
+    <text x="7" y="41" font-family="Lato, sans-serif" font-size="2.6" fill="#ffffff" fill-opacity="0.72">Développeur web créatif / consultant IA</text>
+
+    <!-- tagline -->
+    <text x="7" y="56" font-family="Lato, sans-serif" font-style="italic" font-size="2.2" fill="#ffffff" fill-opacity="0.4">Le code au service de la créativité.</text>
+  </g>
+
+  <!-- ===================== VERSO ===================== -->
+  <g id="verso" transform="translate(93,0)">
+    <rect x="0" y="0" width="91" height="61" fill="#fafafa"/>
+    <rect x="3" y="3" width="85" height="55" fill="none" stroke="#0E0A35" stroke-opacity="0.2" stroke-width="0.15" stroke-dasharray="1,1"/>
+
+    <!-- wordmark -->
+    <text x="7" y="15" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="4" fill="#0E0A35">Marill<tspan fill="#5A4DEB">.</tspan>dev</text>
+
+    <!-- coordonnées -->
+    <g font-family="Lato, sans-serif" font-size="2.6" fill="#3f3f46">
+      <text x="7" y="25">pro@marill.dev</text>
+      <text x="7" y="30.4">+33 7 86 81 30 83</text>
+      <text x="7" y="35.8">@damien.marill</text>
+      <text x="7" y="41.2">Damien Marill (LinkedIn)</text>
+    </g>
+    <!-- puces couleur accent devant chaque ligne -->
+    <g fill="#5A4DEB">
+      <circle cx="4.5" cy="23.8" r="0.9"/>
+      <circle cx="4.5" cy="29.2" r="0.9"/>
+      <circle cx="4.5" cy="34.6" r="0.9"/>
+      <circle cx="4.5" cy="40" r="0.9"/>
+    </g>
+
+    <!-- QR code (raster externe — voir PRINT.md pour l'embarquer avant impression) -->
+    <image x="71" y="37" width="17" height="17" href="https://api.qrserver.com/v1/create-qr-code/?size=200x200&amp;margin=0&amp;data=https%3A%2F%2Fmarill.dev"/>
+    <text x="79.5" y="56.5" font-family="Lato, sans-serif" font-size="2" fill="#71717a" text-anchor="middle">marill.dev</text>
+  </g>
+</svg>
